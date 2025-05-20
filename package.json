@@ -1,0 +1,17 @@
+{
+  "name": "ts-type-checker-for-video",
+  "version": "1.0.0",
+  "description": "type checker for tutorial video",
+  "license": "ISC",
+  "author": "Mike Delmonaco",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.14",
+    "ts-jest": "^29.3.4",
+    "typescript": "^5.8.3"
+  }
+}
