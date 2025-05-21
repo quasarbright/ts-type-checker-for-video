@@ -81,7 +81,7 @@ export class Num implements Expr {
     ------------------ (NUM)
     ctx |- n => Number
     */
-    return "Number" as const
+    throw Error("not yet implemented")
   }
 }
 
@@ -101,7 +101,7 @@ export class Bool implements Expr {
     ----------------------- (FALSE)
     ctx |- false => Boolean
     */
-    return "Boolean" as const
+    throw Error("not yet implemented")
   }
 }
 
@@ -123,10 +123,7 @@ export class Let implements Expr {
     ---------------------------------------- (LET)
     ctx |- let x = e1 in e2 => t2
     */
-    const t1 = infer(ctx, this.e1)
-    const extended = extend(ctx, this.x, t1)
-    const t2 = infer(extended, this.e2)
-    return t2
+    throw Error("not yet implemented")
   }
 }
 
@@ -142,7 +139,7 @@ export class Var implements Expr {
     ------------- (VAR)
     ctx |- x => t
     */
-    return lookup(ctx, this.x)
+    throw Error("not yet implemented")
   }
 }
 
@@ -162,9 +159,7 @@ export class Plus implements Expr {
     ----------------------------------------------- (PLUS)
     ctx |- left + right => Number
     */
-    check(ctx, this.left, "Number")
-    check(ctx, this.right, "Number")
-    return "Number"
+    throw Error("not yet implemented")
   }
 }
 
@@ -184,9 +179,7 @@ export class Or implements Expr {
     ------------------------------------------------- (OR)
     ctx |- left || right => Boolean
     */
-    check(ctx, this.left, "Boolean")
-    check(ctx, this.right, "Boolean")
-    return "Boolean"
+    throw Error("not yet implemented")
   }
 }
 
@@ -206,9 +199,7 @@ export class Eq implements Expr {
     ------------------------------------ (EQ)
     ctx |- left == right => Boolean
     */
-    const t = infer(ctx, this.left)
-    check(ctx, this.right, t)
-    return "Boolean"
+    throw Error("not yet implemented")
   }
 }
 
@@ -229,10 +220,7 @@ export class If implements Expr {
     ------------------------------------------------------------------------------- (IF)
     ctx |- if condition then thenBranch else elseBranch => t
     */
-    check(ctx, this.condition, "Boolean")
-    const t = infer(ctx, this.thenBranch)
-    check(ctx, this.elseBranch, t)
-    return t
+    throw Error("not yet implemented")
   }
 }
 
@@ -254,9 +242,7 @@ export class Fun implements Expr {
     ----------------------------------------------- (FUN)
     ctx |- fun (x : tx) -> body => tx -> tBody
     */
-    const extended = extend(ctx, this.x, this.tx)
-    const tBody = infer(extended, this.body)
-    return { tArg: this.tx, tRet: tBody }
+    throw Error("not yet implemented")
   }
 }
 
@@ -276,14 +262,7 @@ export class Call implements Expr {
     ------------------------------------------------- (CALL)
     ctx |- func(arg) => tRet
     */
-    const tFun = infer(ctx, this.func)
-    if (typeof tFun !== "object") {
-      throw Error(`Type mismatch: expected a function, but got a ${JSON.stringify(tFun)}`)
-    }
-    // assuming the only type objects are function types
-    const { tArg, tRet } = tFun
-    check(ctx, this.arg, tArg)
-    return tRet
+    throw Error("not yet implemented")
   }
 }
 
@@ -312,13 +291,7 @@ export class LetFun implements Expr {
     -------------------------------------------------------------------- (LETFUN)
     ctx |- letfun f(x : tx): tRet -> functionBody in letBody => tLetBody
     */
-    const tf: Type = { tArg: this.tx, tRet: this.tRet }
-    const functionBodyContext = extend(extend(ctx, this.f, tf), this.x, this.tx)
-    check(functionBodyContext, this.functionBody, this.tRet)
-
-    const letBodyContext = extend(ctx, this.f, tf)
-    const tLetBody = infer(letBodyContext, this.letBody)
-    return tLetBody
+    throw Error("not yet implemented")
   }
 }
 
